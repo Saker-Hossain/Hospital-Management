@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class CustomAuthController extends Controller
 {
@@ -65,5 +66,13 @@ class CustomAuthController extends Controller
 		}else {
 			return redirect("login")->withSuccess('You are not allowed to access');
 		}
+	 }
+
+	 public function signOut()
+	 {
+		Session::flush();
+		Auth::logout();
+
+		return Redirect('login');
 	 }
 }
