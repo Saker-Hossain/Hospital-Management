@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CustomAuthController extends Controller
 {
@@ -45,5 +47,14 @@ class CustomAuthController extends Controller
 		$check = $this->create($data);
 
 		return redirect("dashboard")->withSuccess('You have signed-in');
+	 }
+
+	 public function create(array $data)
+	 {
+		return User::create([
+			'name' => $data['name'],
+			'email' => $data['email'],
+			'password' => Hash::make($data['password'])
+		]);
 	 }
 }
