@@ -32,4 +32,18 @@ class CustomAuthController extends Controller
 	 {
 		return view('auth.login.register');
 	 }
+
+	 public function customRegistration(Request $request)
+	 {
+		$request->validate([
+			'name' => 'required',
+			'email' => 'required|email|unique:users',
+			'password' => 'required|min:6',
+		]);
+
+		$data = $request->all();
+		$check = $this->create($data);
+
+		return redirect("dashboard")->withSuccess('You have signed-in');
+	 }
 }
