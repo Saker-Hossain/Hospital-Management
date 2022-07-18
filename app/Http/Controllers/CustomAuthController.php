@@ -57,4 +57,13 @@ class CustomAuthController extends Controller
 			'password' => Hash::make($data['password'])
 		]);
 	 }
+
+	 public function dashboard()
+	 {
+		if (Auth::check()) {
+			return view('dashboard');
+		}else {
+			return redirect("login")->withSuccess('You are not allowed to access');
+		}
+	 }
 }
